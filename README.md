@@ -2,7 +2,7 @@
 Agentic Pricing Strategy Assistant - Reva (Revenue AI)
 
 Why RevaAI:
-RevaAI enhances the pricing optimization workflow. It automatically matches retailer SKUs to competitor products, interprets complex promotions, extracts and applies company policies and vendor rules, and runs scenario simulations while enforcing guardrails.
+RevaAI enhances the pricing optimization workflow. It automatically matches retailer SKUs to competitor products, interprets complex promotions, extracts and applies company policies and vendor rules, and runs scenario simulations while enforcing guardrails
 
 Resources: <br><br>
 [Proposal](https://docs.google.com/document/d/1WUaQGXIU26Mv5wnYcBkqG5fiUQqPgHRtA9YWkz58iZo/edit?tab=t.0) <br>
