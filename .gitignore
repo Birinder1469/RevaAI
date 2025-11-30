@@ -1,0 +1,16 @@
+
+# macOS system files
+.DS_Store
+
+# Or if you want to keep some notebooks but ignore others, use:
+amazondata.ipynb
+brightdatamcp.py
+data_fetch.ipynb
+
+# Datasets directory (if these are large data files)
+datasets/
+
+# Environment variables
+.env
+.env.local
+
