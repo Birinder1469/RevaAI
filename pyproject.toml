@@ -1,0 +1,17 @@
+[project]
+name = "reva-ai"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain-openai>=0.2.0",
+    "langgraph>=1.0.3",
+    "langgraph-sdk>=0.1.66",
+]
+
+[dependency-groups]
+dev = [
+    "langgraph-cli[inmem]>=0.4.7",
+    "pytest>=9.0.1",
+    "ruff>=0.14.6",
+]

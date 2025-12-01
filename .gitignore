@@ -1,16 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
 
-# macOS system files
-.DS_Store
+# Virtual environments
+.venv/
+venv/
 
-# Or if you want to keep some notebooks but ignore others, use:
-amazondata.ipynb
-brightdatamcp.py
-data_fetch.ipynb
-
-# Datasets directory (if these are large data files)
-datasets/
+# LangGraph checkpoints
+*.pckl
+.langgraph_api/
 
 # Environment variables
 .env
 .env.local
 
+# uv
+uv.lock          # Optional: commit this for reproducibility
+
+# macOS system files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# AI editors
+CLAUDE.md
+.cursor*
+.claude/
+
+# Project-specific notebooks (keep data.ipynb in notebooks/ but ignore these)
+amazondata.ipynb
+brightdatamcp.py
+data_fetch.ipynb
+
+# Datasets directory (large data files)
+datasets/
