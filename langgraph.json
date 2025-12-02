@@ -4,5 +4,6 @@
     "simple": "./src/agents/simple_workflow.py:create_workflow",
     "reva_pricing": "./src/agents/pricing_workflow.py:create_workflow"
   },
-  "env": ".env"
+  "env": ".env",
+  "python_version": "3.12"
 }
