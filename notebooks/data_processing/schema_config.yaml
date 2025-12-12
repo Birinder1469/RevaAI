@@ -1,0 +1,505 @@
+# ============================================================================
+# UNIFIED PRODUCT SCHEMA CONFIGURATION
+# ============================================================================
+# Version: 2.0
+# Last Updated: 2025-12-12
+# Sources: Amazon, BestBuy, Target, Walmart
+# ============================================================================
+
+unified_schema:
+  version: "2.0"
+  last_updated: "2025-12-12"
+  sources:
+    - amazon
+    - bestbuy
+    - target
+    - walmart
+
+  # ============================================================================
+  # UNIFIED FIELD DEFINITIONS
+  # ============================================================================
+  fields:
+    # Core Product Information
+    source_product_id:
+      type: string
+      required: true
+      description: "Unique product ID from source (ASIN, SKU, TCIN, Product ID)"
+
+    source:
+      type: string
+      required: true
+      enum: [amazon, bestbuy, target, walmart]
+      description: "Source retailer/company name"
+
+    source_parent_id:
+      type: string
+      required: false
+      description: "Parent product ID for variants"
+
+    upc:
+      type: string
+      required: false
+      description: "Universal Product Code"
+
+    model_number:
+      type: string
+      required: false
+      description: "Manufacturer model number"
+
+    title:
+      type: string
+      required: true
+      description: "Product title/name"
+
+    brand_name:
+      type: string
+      required: false
+      description: "Normalized brand name"
+
+    description:
+      type: string
+      required: false
+      description: "Product description"
+
+    # Pricing Information
+    current_price:
+      type: float
+      required: false
+      description: "Current/final selling price"
+
+    original_price:
+      type: float
+      required: false
+      description: "Original/list/MSRP price"
+
+    discount_amount:
+      type: float
+      required: false
+      description: "Discount amount (original - current)"
+
+    discount_percentage:
+      type: float
+      required: false
+      description: "Discount percentage"
+
+    currency:
+      type: string
+      required: true
+      default: "USD"
+      description: "Currency code (ISO 4217)"
+
+    # Ratings & Reviews
+    rating:
+      type: float
+      required: false
+      min: 0.0
+      max: 5.0
+      description: "Product rating (0-5 scale)"
+
+    reviews_count:
+      type: integer
+      required: false
+      description: "Number of customer reviews"
+
+    rating_distribution:
+      type: dict
+      required: false
+      description: "Distribution of ratings by star level"
+
+    customer_sentiment:
+      type: string
+      required: false
+      description: "Customer feedback summary/highlights"
+
+    # Media
+    images:
+      type: list
+      required: false
+      description: "List of product image URLs"
+
+    videos:
+      type: list
+      required: false
+      description: "List of product video URLs"
+
+    primary_image:
+      type: string
+      required: false
+      description: "Primary product image URL"
+
+    # Product Details
+    specifications:
+      type: dict
+      required: false
+      description: "Product specifications as key-value pairs"
+
+    features:
+      type: list
+      required: false
+      description: "Product features/bullet points"
+
+    highlights:
+      type: list
+      required: false
+      description: "Product highlights"
+
+    # Category Information
+    category_path:
+      type: string
+      required: false
+      description: "Full category hierarchy (breadcrumb)"
+
+    primary_category:
+      type: string
+      required: false
+      description: "Primary/top-level category"
+
+    secondary_category:
+      type: string
+      required: false
+      description: "Secondary category"
+
+    tertiary_category:
+      type: string
+      required: false
+      description: "Tertiary category"
+
+    # Availability & Delivery
+    availability_status:
+      type: string
+      required: false
+      enum: [in_stock, out_of_stock, limited_stock, preorder]
+      description: "Product availability status"
+
+    delivery_info:
+      type: string
+      required: false
+      description: "Delivery/shipping information"
+
+    # Seller Information
+    seller_name:
+      type: string
+      required: false
+      description: "Seller/merchant name"
+
+    seller_id:
+      type: string
+      required: false
+      description: "Seller/merchant ID"
+
+    seller_rating:
+      type: float
+      required: false
+      description: "Seller rating"
+
+    # Variant Information
+    has_variants:
+      type: boolean
+      required: false
+      description: "Product has variants (color, size, etc.)"
+
+    variant_attributes:
+      type: string
+      required: false
+      description: "Variant attribute type (e.g., 'Color', 'Size')"
+
+    variant_value:
+      type: string
+      required: false
+      description: "Variant value (e.g., 'Red', 'Large')"
+
+    variant_group_id:
+      type: string
+      required: false
+      description: "ID grouping all variants together"
+
+    # Metadata
+    source_url:
+      type: string
+      required: true
+      description: "Product URL on source website"
+
+    scraped_at:
+      type: string
+      required: false
+      description: "Timestamp when data was scraped"
+
+    last_updated:
+      type: string
+      required: false
+      description: "Last update timestamp"
+
+    badges:
+      type: list
+      required: false
+      description: "Product badges (Best Seller, etc.)"
+
+    is_sponsored:
+      type: boolean
+      required: false
+      description: "Is product sponsored/promoted"
+
+    is_prime:
+      type: boolean
+      required: false
+      description: "Amazon Prime eligible"
+
+    special_offers:
+      type: string
+      required: false
+      description: "Special offers/promotions"
+
+# ============================================================================
+# SOURCE FIELD MAPPINGS
+# ============================================================================
+source_mappings:
+  amazon:
+    source_product_id: "asin"
+    source_parent_id: "parent_asin"
+    upc: "product_details[UPC]"
+    model_number: "product_details[model]"
+    title: "title"
+    brand_name: "brand"
+    description: "description"
+    current_price: "final_price"
+    original_price: "initial_price"
+    currency: "currency"
+    rating: "rating"
+    reviews_count: "reviews_count"
+    rating_distribution: "amount_of_stars"
+    customer_sentiment: "customer_says"
+    images: "images"
+    videos: "videos"
+    specifications: "product_details"
+    features: "features"
+    category_path: "categories"
+    availability_status: "availability"
+    delivery_info: "delivery"
+    seller_name: "seller_name"
+    seller_id: "seller_id"
+    seller_rating: "seller_rating"
+    variant_group_id: "parent_asin"
+    source_url: "url"
+    scraped_at: "timestamp"
+    badges: "badge"
+    is_sponsored: "sponsored"
+    is_prime: "amazon_prime"
+
+  bestbuy:
+    source_product_id: "sku"
+    upc: "upc"
+    model_number: "model"
+    title: "title"
+    brand_name: "product_specifications[Brand]"
+    description: "product_description"
+    current_price: "final_price"
+    original_price: "initial_price"
+    currency: "currency"
+    rating: "rating"
+    reviews_count: "reviews_count"
+    rating_distribution: "amount_of_stars"
+    images: "images"
+    specifications: "product_specifications"
+    features: "features"
+    highlights: "highlights"
+    category_path: "breadcrumbs"
+    availability_status: "availability"
+    seller_name: "BestBuy"
+    source_url: "url"
+    scraped_at: "timestamp"
+
+  target:
+    source_product_id: "tcin_id"
+    upc: "upc"
+    model_number: "product_specifications[model]"
+    title: "title"
+    brand_name: "product_brand"
+    description: "product_description"
+    current_price: "final_price"
+    original_price: "initial_price"
+    discount_percentage: "discount"
+    currency: "currency"
+    rating: "rating"
+    reviews_count: "reviews_count"
+    rating_distribution: "amount_of_stars"
+    customer_sentiment: "what_customers_said"
+    images: "images"
+    specifications: "product_specifications"
+    category_path: "breadcrumbs"
+    availability_status: "availability_text"
+    seller_name: "seller_name"
+    source_url: "url"
+    scraped_at: "timestamp"
+
+  walmart:
+    source_product_id: "product_id"
+    upc: "upc"
+    title: "title"
+    brand_name: "brand"
+    description: "description"
+    current_price: "final_price"
+    original_price: "initial_price"
+    discount_amount: "discount"
+    currency: "currency"
+    rating: "rating"
+    reviews_count: "reviews_count"
+    rating_distribution: "rating_stars"
+    customer_sentiment: "top_reviews"
+    images: "image_urls"
+    specifications: "specifications"
+    category_path: "breadcrumbs"
+    primary_category: "category_name"
+    availability_status: "availability_text"
+    seller_name: "seller_info"
+    delivery_info: "store_name"
+    source_url: "url"
+
+# ============================================================================
+# SEMANTIC FIELD GROUPINGS
+# ============================================================================
+field_groups:
+  core_identity:
+    description: "Core product identification fields"
+    fields:
+      - source_product_id
+      - source
+      - source_parent_id
+      - upc
+      - model_number
+      - title
+      - brand_name
+
+  pricing:
+    description: "Pricing and discount information"
+    fields:
+      - current_price
+      - original_price
+      - discount_amount
+      - discount_percentage
+      - currency
+
+  ratings_reviews:
+    description: "Customer ratings and reviews"
+    fields:
+      - rating
+      - reviews_count
+      - rating_distribution
+      - customer_sentiment
+
+  media:
+    description: "Product images and videos"
+    fields:
+      - images
+      - videos
+      - primary_image
+
+  product_details:
+    description: "Product specifications and features"
+    fields:
+      - description
+      - specifications
+      - features
+      - highlights
+
+  categorization:
+    description: "Category and taxonomy"
+    fields:
+      - category_path
+      - primary_category
+      - secondary_category
+      - tertiary_category
+
+  availability:
+    description: "Stock and delivery information"
+    fields:
+      - availability_status
+      - delivery_info
+
+  seller:
+    description: "Seller/merchant information"
+    fields:
+      - seller_name
+      - seller_id
+      - seller_rating
+
+  variants:
+    description: "Product variant information"
+    fields:
+      - has_variants
+      - variant_attributes
+      - variant_value
+      - variant_group_id
+
+  metadata:
+    description: "Metadata and tracking"
+    fields:
+      - source_url
+      - scraped_at
+      - last_updated
+      - badges
+      - is_sponsored
+      - is_prime
+      - special_offers
+
+# ============================================================================
+# DATA QUALITY RULES
+# ============================================================================
+data_quality:
+  required_fields:
+    - source_product_id
+    - source
+    - title
+    - source_url
+    - currency
+
+  rating_validation:
+    min: 0.0
+    max: 5.0
+
+  price_validation:
+    min: 0.0
+    currency_required: true
+
+  text_cleaning:
+    strip_whitespace: true
+    remove_control_chars: true
+    normalize_unicode: true
+    decode_html: true
+
+# ============================================================================
+# TRANSFORMATION RULES
+# ============================================================================
+transformations:
+  normalize_brand:
+    remove_suffixes:
+      - " inc."
+      - " inc"
+      - " corp."
+      - " corp"
+      - " llc"
+      - " ltd"
+      - " electronics"
+    lowercase: true
+    strip: true
+
+  normalize_availability:
+    in_stock:
+      - "in stock"
+      - "available"
+      - "add to cart"
+      - "buy now"
+    out_of_stock:
+      - "out of stock"
+      - "unavailable"
+      - "sold out"
+    limited_stock:
+      - "limited"
+      - "few left"
+      - "low stock"
+    preorder:
+      - "preorder"
+      - "pre-order"
+
+  clean_numeric_id:
+    remove_suffix: ".0"
+    convert_to_string: true
